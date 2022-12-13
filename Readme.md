@@ -11,3 +11,5 @@ Use existing `docker-compose.yml` as a template, fill the hostname and credentia
 ## Outputs
 XCC Graph periodically reads data from the XCC web interface (every minute) and stores them in both RRD datasets and in the .csv file.
 Web server uses HighchartsJS for plotting the XML output from RRD datasets.
+
+![XCC Graph Screen Shot](/images/screenshot.png)
