@@ -1,0 +1,1 @@
+`fix_charset.rb` - internal utility used for fixing double UTF-8 encoding of .xml files saved from the XCC web interface. 
