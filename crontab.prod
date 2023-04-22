@@ -26,6 +26,6 @@ SHELL=/bin/bash
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 # m h  dom mon dow   command
-*/1 * * * * /bin/bash /usr/scheduler/jobs/xcc_read.sh > /dev/nul &2>1
-*/5 * * * * /bin/bash /usr/scheduler/jobs/export_xml.sh > /dev/nul &2>1
+*/1 * * * * root /bin/bash /usr/scheduler/jobs/xcc_read.sh > /dev/null &2>1
+*/5 * * * * root /bin/bash /usr/scheduler/jobs/export_xml.sh > /dev/null &2>1
 
