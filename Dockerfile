@@ -1,4 +1,4 @@
-FROM --platform=linux/arm/v7 sebp/lighttpd:latest
+FROM --platform=linux/amd64 sebp/lighttpd:latest
 
 # Install required packages
 RUN apk add --update --no-cache bash rrdtool curl openssl tzdata
