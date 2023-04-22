@@ -1,21 +1,17 @@
-#!/bin/sh
+#!/bin/bash
 
 # Initialize XCC RRD data files
 /usr/scheduler/utils/xcc_init_rrd.sh
+
+crontab -l | { cat; echo "$(env)"; } | crontab -
 
 if [ ! -d "/var/www/html/xccdata" ]; then
    ln -s "${XCC_TMP_PATH}/xccdata" "/var/www/html/xccdata"
 fi
 
-if [ -z "$SCHEDULER_ENVIRONMENT" ]; then
-   echo "SCHEDULER_ENVIRONMENT not set, assuming Development"
-   SCHEDULER_ENVIRONMENT="Development"
+if [ "$SCHEDULER_ENVIRONMENT" = "prod" ]; then
+   crontab -l | { cat; echo "*/1 * * * * /bin/bash /usr/scheduler/jobs/xcc_read.sh > /dev/null &2>1"; } | crontab -
+   crontab -l | { cat; echo "*/5 * * * * /bin/bash /usr/scheduler/jobs/export_xml.sh > /dev/null &2>1"; } | crontab -
 fi
 
-# Select the crontab file based on the environment
-CRON_FILE="crontab.$SCHEDULER_ENVIRONMENT"
-
-echo "Loading crontab file: $CRON_FILE"
-
-# Load the crontab file
-crontab $CRON_FILE
+cron -f -L 15

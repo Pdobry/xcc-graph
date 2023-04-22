@@ -1,12 +1,12 @@
 FROM debian:11
 
 # Install required packages
-RUN apt-get update && apt-get install -y cron lighttpd rrdtool curl openssl tzdata supervisor
+RUN apt-get update && apt-get install -y cron lighttpd procps vim rrdtool curl openssl tzdata supervisor
 
 WORKDIR /usr/scheduler
 
 # Copy files
-ADD bin crontab.* ./
+ADD bin ./
 ADD init.sh /usr/local/bin/
 ADD html/ /var/www/html/
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
@@ -20,7 +20,7 @@ ENV XCC_VAR_PATH="/data" \
     XCC_HOSTNAME="xcc.lan" \
     XCC_USERNAME="" \
     XCC_PASSWORD="" \
-    TZ=Europe/Prague 
+    TZ=Europe/Prague
 
 # Fix execute permissions
 RUN chmod +x /usr/local/bin/init.sh && find . -type f -iname "*.sh" -exec chmod +x {} \;
