@@ -1,22 +1,28 @@
-FROM --platform=linux/amd64 sebp/lighttpd:latest
+FROM debian:11
 
 # Install required packages
-RUN apk add --update --no-cache bash rrdtool curl openssl tzdata
+RUN apt-get update && apt-get install -y cron lighttpd rrdtool curl openssl tzdata supervisor
 
 WORKDIR /usr/scheduler
 
 # Copy files
 ADD bin crontab.* ./
-ADD start.sh /usr/local/bin/
-ADD html/ /var/www/localhost/htdocs/
+ADD init.sh /usr/local/bin/
+ADD html/ /var/www/html/
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY 01-redirect_logs.conf /etc/lighttpd/conf-enabled/
 
-VOLUME [ "/var/xccdata" ]
-ENV XCC_VAR_PATH="/var/xccdata" \
-    XCC_TMP_PATH="/run" \
+EXPOSE 80
+VOLUME [ "/data" ]
+
+ENV XCC_VAR_PATH="/data" \
+    XCC_TMP_PATH="/tmp" \
     XCC_HOSTNAME="xcc.lan" \
     XCC_USERNAME="" \
     XCC_PASSWORD="" \
-    TZ=Europe/Prague
+    TZ=Europe/Prague 
 
 # Fix execute permissions
-RUN chmod +x /usr/local/bin/start.sh && find . -type f -iname "*.sh" -exec chmod +x {} \;
+RUN chmod +x /usr/local/bin/init.sh && find . -type f -iname "*.sh" -exec chmod +x {} \;
+
+CMD ["/usr/bin/supervisord"]
