@@ -130,22 +130,22 @@ curl -L -b ${SESSION_COOKIE} http://${XCC_HOSTNAME}/logout.xml
 if [[ -n $MQTT_HOST ]]; then 
 	MQTT_PAYLOAD=$(cat <<EOF
 	{
-		"outside_temp": '$T_VENKU',
-		"room_temp": '$T_ROOM',
-		"cond_temp": '$T_KOND',
-		"sani_temp": '$T_SANI',
-		"vytlak_temp": '$T_VYTLAK',
-		"vyparnik_temp": '$T_VYPARNIK',
-		"fm_temp": '$T_FM',
-		"pozad_temp": '$T_POZAD',
-		"ekv_temp": '$T_EKV',
-		"voda_temp": '$T_VODA',
-		"fan_h": '$FAN_H',
-		"fan_l": '$FAN_L',
-		"vykon": '$VYKON',
-		"prikon": '$PRIKON',
-		"hdo": '$HDO',
-		"bival": '$BIVAL'
+		"outside_temp": $T_VENKU,
+		"room_temp": $T_ROOM,
+		"cond_temp": $T_KOND,
+		"sani_temp": $T_SANI,
+		"vytlak_temp": $T_VYTLAK,
+		"vyparnik_temp": $T_VYPARNIK,
+		"fm_temp": $T_FM,
+		"pozad_temp": $T_POZAD,
+		"ekv_temp": $T_EKV,
+		"voda_temp": $T_VODA,
+		"fan_h": $FAN_H,
+		"fan_l": $FAN_L,
+		"vykon": $VYKON,
+		"prikon": $PRIKON,
+		"hdo": $HDO,
+		"bival": $BIVAL
 	}
 EOF
 	)
