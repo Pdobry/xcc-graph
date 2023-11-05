@@ -1,7 +1,7 @@
 FROM debian:11
 
 # Install required packages
-RUN apt-get update && apt-get install -y cron lighttpd procps vim rrdtool curl openssl tzdata supervisor
+RUN apt-get update && apt-get install -y cron lighttpd procps vim rrdtool curl openssl tzdata supervisor mosquitto-clients
 
 WORKDIR /usr/scheduler
 
